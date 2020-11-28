@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: email-service
+  main:
+    web-application-type: none
+  kafka:
+    properties:
+      security.protocol: 'PLAINTEXT'
+    consumer:
+      bootstrap-servers: localhost:9092
+#      bootstrap-servers: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092   #while referring the kafka cluster running on docker
+      group-id: email_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: {username}
+    password: {password}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+topic:
+  flight-booking: booking
+  removed-booking: removed_booking
