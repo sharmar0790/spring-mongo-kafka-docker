@@ -16,9 +16,9 @@ spring:
     password: admin
   kafka:
     producer:
-    #  bootstrap-servers: kafka:9092
-      #bootstrap-servers: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092   #while referring the kafka cluster running on docker
-      bootstrap-servers: PLAINTEXT_HOST://localhost:9092   #while referring the kafka cluster running on docker
+      bootstrap-servers: kafka:9092
+      # bootstrap-servers: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092   #while referring the kafka cluster running on docker
+      # bootstrap-servers: PLAINTEXT_HOST://kafka:9092   #while referring the kafka cluster running on docker
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
