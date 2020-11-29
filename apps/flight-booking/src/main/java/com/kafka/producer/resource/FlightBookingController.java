@@ -30,11 +30,13 @@ public class FlightBookingController {
     @Autowired
     private FlightBookingProducer flightBookingProducer;
 
+    //localhost:8081/
     @GetMapping("/")
     public String imHealthy() {
         return "{\"healthy\": true}";
     }
 
+    //localhost:8081/book-flight
     @PostMapping("/book-flight")
     public String bookFlight(@RequestBody FlightBookingRequest flightBookingRequest) {
 
