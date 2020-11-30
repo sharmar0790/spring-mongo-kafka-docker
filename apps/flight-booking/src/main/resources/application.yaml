@@ -26,3 +26,9 @@ server:
 
 topic:
   flight-booking: booking
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+
