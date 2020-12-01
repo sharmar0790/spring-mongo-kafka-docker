@@ -1,10 +1,10 @@
 #  Flight-booking service
 
 ## Commands to build the image of service
-###1) Build and run locally
+### 1) Build and run locally
   - mvn spring-boot:run
   
-###2) Build and run in docker container  
+### 2) Build and run in docker container  
   - Goto the root directory of the flight booking service.  
   - Execute the command  
     - docker build .  
