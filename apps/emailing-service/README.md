@@ -2,7 +2,7 @@
 
 ## Commands to build the image of service
 ### 1) Build and run locally
-  - mvn spring-boot:run
+  - ./mvnw spring-boot:run
   
 ### 2) Build and run in docker container   
  - Goto the root directory of the flight booking service.  
@@ -18,12 +18,14 @@
 
 ### Ways to remove the application server ability (i.e. tomcat) from spring boot.
   * Add below properties in application.yaml file
+    
     ```
     spring:
       main:
         web-application-type: none
     ```
   * Exclude **spring-boot-starter-web** dependency from your module. 
+    
     ```
     <dependency>
     	<groupId>org.springframework.boot</groupId>
@@ -31,6 +33,7 @@
     </dependency>
     ```		
   * Change your main method implementation as mentioned below
+    
     ```
     @SpringBootApplication
     public class EmailingServiceApplication {

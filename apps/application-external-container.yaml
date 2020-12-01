@@ -4,7 +4,7 @@ spring:
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.H2Dialect
-# Enable below pros if you're using in-memory H@ database
+# Enable below props if you're using in-memory H2 database
 #  h2:
 #    console:
 #      enabled: true

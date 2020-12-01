@@ -11,10 +11,17 @@ services:
     image: mongo
     restart: always
     container_name: mongo
+    hostname: mongodb
     networks:
       - rmoff_services
     ports:
       - 27017:27017
+#    command: ["-f", "/etc/mongod.conf"]
+#    volumes:
+#      - ./.docker/mongodb/mongod.conf:/etc/mongod.conf
+#      - ./.docker/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+#      - ./.docker/mongodb/data/db/:/data/db/
+#      - ./.docker/mongodb/data/log/:/var/log/mongodb/
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root

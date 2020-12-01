@@ -21,7 +21,6 @@ public class EmailServiceListener {
     private static ObjectMapper obj = new ObjectMapper();
 
     @KafkaListener(topics = "${topic.flight-booking}", groupId = "${spring.kafka.consumer.group-id}")
-    //@KafkaListener(topics = "booking", groupId = "email_id")
     public void consumeBookedMessage(final String record) throws Exception {
         LOG.info("#### -> received message -> {}", record);
         final BookingRequest br = obj.readValue(record, BookingRequest.class);
