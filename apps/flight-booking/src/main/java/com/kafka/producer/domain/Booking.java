@@ -1,28 +1,36 @@
 package com.kafka.producer.domain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "bookings")
+
+
+//@Entity
+//@Table(name = "bookings")
+@Document(collection = "bookings")
 public class Booking {
 
+    @Transient
+    public static final String SEQIENCE_NAME="BOOKING_SEQUENCE";
+
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     private Long id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
-    @Column(name = "age")
+//    @Column(name = "age")
     private Integer age;
 
-    @Column(name = "gender")
+//    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "email")
+//    @Column(name = "email")
     private String email;
 
-    @Column(name = "reference_id")
+//    @Column(name = "reference_id")
     private String referenceId;
 
     public Long getId() {

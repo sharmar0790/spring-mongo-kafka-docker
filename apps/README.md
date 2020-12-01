@@ -20,9 +20,9 @@
   
   
 ## Application Endpoints to test the services:  
- - localhost:8081/book-flight  -> To create the entry in database and publish message to kafka topic.  
- - localhost:8081/  -> To verify the application status  
- - localhost:8081/bookings -> to get the all bokings  
+ - localhost:8082/api/book-flight  -> To create the entry in database and publish message to kafka topic.  
+ - localhost:8082/api/  -> To verify the application status  
+ - localhost:8082/api/bookings -> to get the all bookings  
  
 ## Kafka consumer CLI commands to verify the messages:  
   When kafka running locally
@@ -41,4 +41,5 @@
   
 ## Extra useful links:
   - https://docs.confluent.io/3.2.2/installation/docker/docs/quickstart.html
-  - https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/ 
+  - https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/   
+  - https://spring.io/guides/topicals/spring-boot-docker/  

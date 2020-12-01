@@ -1,8 +1,8 @@
 version: '3.1'
 
 networks:
-  rmoff_kafka:
-    name: rmoff_kafka
+  rmoff_services:
+    name: rmoff_services
 
 services:
 
@@ -13,7 +13,7 @@ services:
     image: confluentinc/cp-zookeeper:5.5.0
     container_name: zookeeper
     networks:
-      - rmoff_kafka
+      - rmoff_services
     ports:
       - "2181:2181"
     environment:
@@ -27,7 +27,7 @@ services:
     image: confluentinc/cp-kafka:5.5.0
     container_name: kafka
     networks:
-      - rmoff_kafka
+      - rmoff_services
     depends_on:
       - zookeeper
     ports:

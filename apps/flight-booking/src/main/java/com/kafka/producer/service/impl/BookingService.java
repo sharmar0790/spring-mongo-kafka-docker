@@ -1,8 +1,10 @@
-package com.kafka.producer.service;
+package com.kafka.producer.service.impl;
 
 import com.kafka.producer.domain.Booking;
 import com.kafka.producer.model.FlightBookingRequest;
 import com.kafka.producer.repository.BookingRepository;
+import com.kafka.producer.service.IBookingService;
+import com.kafka.producer.sequencegenerator.SequenceGeneratorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +17,21 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Service
-public class BookingService {
+public class BookingService implements IBookingService {
 
     private static final Logger LOG = LoggerFactory.getLogger(BookingService.class);
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy", Locale.ENGLISH);
-
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy", Locale.ENGLISH);
 
     @Autowired
-    private BookingRepository bookingRepository;
+    BookingRepository bookingRepository;
+
+    @Autowired
+    SequenceGeneratorService sequenceGeneratorService;
 
     public Booking bookAFlight(final FlightBookingRequest bookingRequest) {
 
         final Booking booking = new Booking();
+        booking.setId(sequenceGeneratorService.generateSequence(Booking.SEQIENCE_NAME));
         booking.setAge(bookingRequest.getAge());
         booking.setGender(bookingRequest.getGender());
         booking.setName(bookingRequest.getName());

@@ -1,5 +1,6 @@
-package com.kafka.producer.service;
+package com.kafka.producer.service.impl;
 
+import com.kafka.producer.service.IFlightBookingProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,14 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Service
 @ConfigurationProperties(prefix = "flight-booking")
-public class FlightBookingProducer {
+public class FlightBookingProducer implements IFlightBookingProducer {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlightBookingProducer.class);
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage(final String message,final String topicName) {
+    public void sendMessage(final String message, final String topicName) {
         LOG.info(String.format("##### -> Producing to topic -> %s message -> %s", topicName, message));
         ListenableFuture<SendResult<String, String>> future = this.kafkaTemplate.send(topicName, message);
 

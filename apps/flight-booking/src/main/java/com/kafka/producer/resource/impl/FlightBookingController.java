@@ -1,11 +1,12 @@
-package com.kafka.producer.resource;
+package com.kafka.producer.resource.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kafka.producer.domain.Booking;
 import com.kafka.producer.model.FlightBookingRequest;
 import com.kafka.producer.model.RemovedBookingMessage;
-import com.kafka.producer.service.BookingService;
-import com.kafka.producer.service.FlightBookingProducer;
+import com.kafka.producer.resource.IFlightBookingController;
+import com.kafka.producer.service.impl.BookingService;
+import com.kafka.producer.service.impl.FlightBookingProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@RestController()
-public class FlightBookingController {
+@RestController
+@RequestMapping("/api")
+public class FlightBookingController implements IFlightBookingController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlightBookingController.class);
     private static final String BLANK = "";
@@ -26,19 +28,17 @@ public class FlightBookingController {
     private static String REMOVED_TOPIC = "removed_topic";
 
     @Autowired
-    private BookingService bookingService;
-    @Autowired
-    private FlightBookingProducer flightBookingProducer;
+    BookingService bookingService;
 
-    //localhost:8081/
-    @GetMapping("/")
+    @Autowired
+    FlightBookingProducer flightBookingProducer;
+
+
     public String imHealthy() {
         return "{\"healthy\": true}";
     }
 
-    //localhost:8081/book-flight
-    @PostMapping("/book-flight")
-    public String bookFlight(@RequestBody FlightBookingRequest flightBookingRequest) {
+    public String bookFlight(@RequestBody final FlightBookingRequest flightBookingRequest) {
 
         final Booking booking = bookingService.bookAFlight(flightBookingRequest);
 
@@ -64,17 +64,14 @@ public class FlightBookingController {
         }
     }
 
-    @GetMapping("/bookings")
-    @ResponseBody
     public List<Booking> bookings() {
         return bookingService.getAllBookings();
     }
 
-    @DeleteMapping("/delete-booking/{bookingReferenceId}")
-    @ResponseBody
-    public String deleteBooking(@PathVariable("bookingReferenceId") String refId) throws Exception {
+
+    public String deleteBooking(@PathVariable("bookingReferenceId") final String bookingReferenceId) throws Exception {
         String jsonStr = BLANK;
-        final Booking booking = bookingService.deleteBooking(refId);
+        final Booking booking = bookingService.deleteBooking(bookingReferenceId);
         if (null != booking) {
             final RemovedBookingMessage removedBookingMessage = new RemovedBookingMessage(booking, REMOVED);
             jsonStr = obj.writeValueAsString(removedBookingMessage);
