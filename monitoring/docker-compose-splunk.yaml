@@ -5,20 +5,20 @@ services:
     hostname: splunk
     environment:
       - SPLUNK_START_ARGS=--accept-license
-      - SPLUNK_USER=admin
-      - SPLUNK_PASSWORD=Apple@1234
+      - SPLUNK_USER=admin                     # this should remain this or you can remove this option as by default user will be admin
+      - SPLUNK_PASSWORD=Apple@1234            # you can configure this by providing the password of your choice.
       - SPLUNK_ENABLE_LISTEN=9997
     ports:
-      - "8001:8000"
+      - "8000:8000"
   splunkforwarder:
     image: splunk/universalforwarder:6.5.3-monitor
     hostname: splunkforwarder
     environment:
       - SPLUNK_START_ARGS=--accept-license --answer-yes
       - SPLUNK_FORWARD_SERVER=splunk:9997
-      - SPLUNK_USER=admin
-      - SPLUNK_PASSWORD=Apple@1234
-      - SPLUNK_ADD=monitor /logs
+      - SPLUNK_USER=admin                     # this should remain this or you can remove this option as by default user will be admin
+      - SPLUNK_PASSWORD=Apple@1234            # you can configure this by providing the password of your choice.
+      - SPLUNK_ADD=monitor /logs              # path within container
     restart: always
     depends_on:
       - splunk
